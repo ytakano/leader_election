@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  main_ecu:
+    build:
+      context: .
+    container_name: main_ecu
+    networks:
+      - me_se
+      - me_mv
+      - me_sv
+    tty: true
+    cpuset: 2,3
+
+  sub_ecu:
+    build:
+      context: .
+    container_name: sub_ecu
+    networks:
+      - me_se
+      - se_mv
+      - se_sv
+    tty: true
+    cpuset: 4,5
+
+  main_vcu:
+    build:
+      context: .
+    container_name: main_vcu
+    networks:
+      - me_mv
+      - se_mv
+      - mv_sv
+    tty: true
+    cpuset: 6,7
+
+  sub_vcu:
+    build:
+      context: .
+    container_name: sub_vcu
+    networks:
+      - me_sv
+      - se_sv
+      - mv_sv
+    tty: true
+
+networks:
+  me_se:
+    driver: bridge
+  me_mv:
+    driver: bridge
+  me_sv:
+    driver: bridge
+  se_mv:
+    driver: bridge
+  se_sv:
+    driver: bridge
+  mv_sv:
+    driver: bridge
