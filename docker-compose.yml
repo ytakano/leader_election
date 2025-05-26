@@ -43,6 +43,7 @@ services:
       - se_sv
       - mv_sv
     tty: true
+    cpuset: 8,9
 
 networks:
   me_se:
